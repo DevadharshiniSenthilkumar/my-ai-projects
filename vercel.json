@@ -4,5 +4,8 @@
       "maxDuration": 15,
       "memory": 1024
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  ]
 }
