@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My AI Projects Portfolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 50px;
+        }
+        .projects {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .project-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 30px;
+            width: 300px;
+            text-decoration: none;
+            color: #c9d1d9;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: #58a6ff;
+        }
+        .project-card h2 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 My AI & VR Projects Hub</h1>
+    <div class="projects">
+        <a href="/house-price-predictor/" class="project-card">
+            <div class="icon">🏡</div>
+            <h2>AI House Price Predictor</h2>
+            <p>A Machine Learning tool demonstrating real-world prediction mechanics.</p>
+        </a>
+        <a href="/chola-temple-walkthrough/" class="project-card">
+            <div class="icon">🏛️</div>
+            <h2>Chola Temple VR</h2>
+            <p>An immersive 3D walkthrough of historical architecture.</p>
+        </a>
+    </div>
+</body>
+</html>
