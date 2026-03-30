@@ -22,10 +22,13 @@ except Exception as e:
     print(f"Error loading model: {e}")
 
 @app.route('/', methods=['GET'])
+@app.route('/api/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def health_check():
     return jsonify({"status": "API is running!", "model_loaded": model is not None})
 
 @app.route('/predict', methods=['POST'])
+@app.route('/api/predict', methods=['POST'])
 def predict():
     if model is None:
         return jsonify({"error": "Model is not loaded on the server."}), 500
