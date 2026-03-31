@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const priceReveal = document.getElementById('price-reveal');
     const errorMessage = document.getElementById('error-message');
 
-    // The backend API URL. 
-    // Uses absolute path `/api/predict` in production (Vercel routes)
-    // and localhost:5000/predict for local development fallback if not served together.
+    // Dynamically point to /api/predict in production, or localhost:5000 in dev
     const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
         ? 'http://localhost:5000/predict' 
         : '/api/predict';
@@ -15,48 +13,40 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Hide old results/errors
+        // Reset UI Context
         resultSection.classList.add('hidden');
         errorMessage.classList.add('hidden');
         errorMessage.textContent = '';
 
-        // Gather real-world inputs
-        const medInc = document.getElementById('medInc').value;
-        const houseAge = document.getElementById('houseAge').value;
-        const aveRooms = document.getElementById('aveRooms').value;
-        const aveBedrms = document.getElementById('aveBedrms').value;
-
+        // Capture user inputs from elegant minimal form
         const requestData = {
-            medInc: parseFloat(medInc),
-            houseAge: parseFloat(houseAge),
-            aveRooms: parseFloat(aveRooms),
-            aveBedrms: parseFloat(aveBedrms)
+            medInc: parseFloat(document.getElementById('medInc').value),
+            houseAge: parseFloat(document.getElementById('houseAge').value),
+            aveRooms: parseFloat(document.getElementById('aveRooms').value),
+            aveBedrms: parseFloat(document.getElementById('aveBedrms').value)
         };
 
-        // UI Loading State Call
         setLoadingState(true);
 
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestData)
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to predict price.');
+                throw new Error(data.error || 'Server error computing prediction.');
             }
 
-            // Success! Animate the result.
-            showResult(data.predicted_price, data.formatted_price);
+            // Beautiful UI price intro!
+            showResult(data.predicted_price);
 
         } catch (error) {
-            console.error('Prediction Error:', error);
-            showError("We encountered an issue reaching the AI backend. Please make sure the server is running or try again.");
+            console.error('Prediction Engine Error:', error);
+            showError("Network anomaly detected. Ensure backend is reachable and try again.");
         } finally {
             setLoadingState(false);
         }
@@ -75,33 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function showError(message) {
         errorMessage.textContent = message;
         errorMessage.classList.remove('hidden');
-        
-        // Auto-hide error after 5s
-        setTimeout(() => {
-            errorMessage.classList.add('hidden');
-        }, 5000);
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
     }
 
-    function showResult(numPrice, textPrice) {
+    function showResult(numPrice) {
         resultSection.classList.remove('hidden');
         
-        // Fast counter animation for ultra-premium feel
-        animateValue(priceReveal, 0, numPrice, 1200);
+        // Exquisite slot-machine counter animation for the huge numbers!
+        animateValue(priceReveal, 0, numPrice, 1500);
     }
 
-    // Number counting animation
     function animateValue(obj, start, end, duration) {
         let startTimestamp = null;
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
             
-            // Easing function outExpo
-            const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            // Quintic easing out creates a dramatic "slow down" at the end (looks extremely premium)
+            const easeOutQuint = 1 - Math.pow(1 - progress, 5);
             
-            const currentVal = start + easeOutExpo * (end - start);
+            const currentVal = start + easeOutQuint * (end - start);
             
-            // Format currency dynamically
             obj.innerHTML = new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
@@ -111,10 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             } else {
-                // Final exact value at the end
+                // Ensure exact floating point value displayed upon end
                 obj.innerHTML = new Intl.NumberFormat('en-US', {
                     style: 'currency',
-                    currency: 'USD'
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
                 }).format(end);
             }
         };

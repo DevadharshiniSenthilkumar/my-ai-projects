@@ -3,73 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI-Powered House Price Prediction. Enter real-world statistics to accurately predict housing values.">
-    <title>NexEstate | AI Price Predictor</title>
-    <!-- Modern typography from Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>NexEstate AI | Premium Property Predictor</title>
+    <meta name="description" content="Discover instant, AI-driven house price evaluations with NexEstate.">
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated animated background elements -->
+    <!-- Abstract animated background blobs -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
-    <main class="glass-container">
-        <header>
-            <h1>NexEstate<span class="dot">.</span></h1>
-            <p>AI-Powered House Price Predictor</p>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">Nex<span class="highlight">Estate</span></h1>
+            <p class="subtitle">AI-Powered Valuation Engine</p>
         </header>
 
-        <form id="prediction-form">
-            <div class="input-group">
-                <label for="medInc">Median Income (in $10k)</label>
-                <div class="input-wrapper">
-                    <span class="icon">💰</span>
-                    <input type="number" id="medInc" step="0.01" placeholder="e.g. 5.12" required>
+        <!-- Main Interface -->
+        <main class="glass-card">
+            <form id="prediction-form" class="prediction-form">
+                
+                <div class="form-group">
+                    <label for="medInc">Median Income (in $10ks)</label>
+                    <input type="number" id="medInc" step="0.01" placeholder="e.g. 5.5" required>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="houseAge">House Age (Years)</label>
-                <div class="input-wrapper">
-                    <span class="icon">📅</span>
+                <div class="form-group">
+                    <label for="houseAge">House Age (years)</label>
                     <input type="number" id="houseAge" step="1" placeholder="e.g. 25" required>
                 </div>
-            </div>
 
-            <div class="input-row">
-                <div class="input-group">
-                    <label for="aveRooms">Avg Rooms</label>
-                    <div class="input-wrapper">
-                        <span class="icon">🚪</span>
-                        <input type="number" id="aveRooms" step="0.1" placeholder="e.g. 6.2" required>
-                    </div>
+                <div class="form-group">
+                    <label for="aveRooms">Average Rooms</label>
+                    <input type="number" id="aveRooms" step="0.1" placeholder="e.g. 6.2" required>
                 </div>
 
-                <div class="input-group">
-                    <label for="aveBedrms">Avg Bedrooms</label>
-                    <div class="input-wrapper">
-                        <span class="icon">🛏️</span>
-                        <input type="number" id="aveBedrms" step="0.1" placeholder="e.g. 1.1" required>
-                    </div>
+                <div class="form-group">
+                    <label for="aveBedrms">Average Bedrooms</label>
+                    <input type="number" id="aveBedrms" step="0.1" placeholder="e.g. 1.1" required>
                 </div>
+
+                <button type="submit" id="predict-btn" class="glow-on-hover">
+                    <span class="btn-text">Reveal Price</span>
+                    <span class="spinner hidden" id="spinner"></span>
+                </button>
+            </form>
+
+            <div id="error-message" class="error-message hidden"></div>
+
+            <!-- Result Section -->
+            <div id="result-section" class="result-section hidden">
+                <p class="result-label">Estimated Market Value</p>
+                <h2 id="price-reveal" class="price-reveal">$0</h2>
             </div>
-
-            <button type="submit" id="predict-btn">
-                <span>Predict Price</span>
-                <span class="loader" id="btn-loader"></span>
-            </button>
-        </form>
-
-        <section id="result-section" class="hidden">
-            <h3 class="result-label">Estimated Value</h3>
-            <div id="price-reveal" class="price-value">$0.00</div>
-        </section>
+        </main>
         
-        <div id="error-message" class="hidden error"></div>
-    </main>
+        <footer class="footer">
+            <p>Built with ❤️ and Pure Python Math for flawless Vercel deployment.</p>
+        </footer>
+    </div>
 
     <script src="app.js"></script>
 </body>
