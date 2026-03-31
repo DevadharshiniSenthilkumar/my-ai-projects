@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered Sign Language Word Predictor. Real-time vision and high-accuracy word recognition.">
+    <title>SignAI | Real-time Gesture Recognition</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- MediaPipe & TFJS Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+
+    <main class="app-container">
+        <header>
+            <div class="logo">SignAI<span>(Beta)</span></div>
+            <div class="status-badge" id="status-badge">Initializing Engine...</div>
+        </header>
+
+        <section class="main-view">
+            <div class="video-container">
+                <video id="input-video" playsinline></video>
+                <canvas id="output-canvas"></canvas>
+                <div class="scan-line"></div>
+                <div class="tracking-overlay" id="tracking-overlay">
+                    <span>Tracking Active</span>
+                </div>
+            </div>
+
+            <aside class="info-panel">
+                <div class="prediction-card glass">
+                    <h2 class="label">Current Prediction</h2>
+                    <div id="prediction-text" class="predicted-word">...</div>
+                    <div class="confidence-bar">
+                        <div id="confidence-fill" class="fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="history-card glass">
+                    <h2 class="label">Sentence History</h2>
+                    <div id="history-log" class="history-content">
+                        Your recognized words will appear here...
+                    </div>
+                    <button id="clear-btn" class="glass-btn">Clear History</button>
+                </div>
+
+                <div class="settings-card glass">
+                    <div class="toggle-group">
+                        <label>🔊 Audio Feedback</label>
+                        <input type="checkbox" id="audio-toggle" checked>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <footer>
+            <p>Made with AI · Recognizing Common ASL Signs</p>
+        </footer>
+    </main>
+
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loader"></div>
+        <p>Loading AI Models...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
